@@ -23,12 +23,12 @@ export default function Home() {
   const handlePhantomConnect = useCallback(async () => {
     try {
       setConnecting(true);
-      const phantomInstalled = true; // Check if Phantom is installed
+      const phantomInstalled = window?.phantom?.solana?.isPhantom;
 
       if (phantomInstalled) {
         try {
-          // const response = await window.phantom?.solana?.connect();
-          setPublicKey("Desktop view, yaaaay");
+          const response = await window.phantom?.solana?.connect();
+          setPublicKey(response?.publicKey.toString());
         } catch (err) {
           console.error("Connection error:", err);
         }
