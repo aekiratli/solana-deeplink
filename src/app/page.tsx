@@ -1,6 +1,18 @@
 "use client";
 import { useCallback, useState, useEffect } from "react";
 import nacl from "tweetnacl";
+
+// Extend the Window interface to include the phantom property
+interface PhantomWindow extends Window {
+  phantom?: {
+    solana?: {
+      isPhantom?: boolean;
+      connect?: () => Promise<{ publicKey: { toString: () => string } }>;
+    };
+  };
+}
+
+declare const window: PhantomWindow;
 import bs58 from "bs58";
 
 // Constants
@@ -27,8 +39,10 @@ export default function Home() {
 
       if (phantomInstalled) {
         try {
-          const response = await window.phantom?.solana?.connect();
-          setPublicKey(response?.publicKey.toString());
+          const response = await window.phantom?.solana?.connect?.();
+          if (response?.publicKey) {
+            setPublicKey(response.publicKey.toString());
+          }
         } catch (err) {
           console.error("Connection error:", err);
         }
