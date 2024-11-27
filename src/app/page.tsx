@@ -16,7 +16,7 @@ declare const window: PhantomWindow;
 import bs58 from "bs58";
 
 // Constants
-const PHANTOM_CONNECT_URL = "phantom://v1/connect";
+const PHANTOM_CONNECT_URL = "https://phantom.app/ul/v1/connect";
 const APP_URL = "https://solana-deeplink.vercel.app.com"; // Replace with your app URL
 
 export default function Home() {
